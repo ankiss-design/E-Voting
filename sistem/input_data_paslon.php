@@ -22,27 +22,18 @@ if(isset($_POST['simpan'])) {
       if($ukuran <= 2000000){          
         move_uploaded_file($file_tmp, 'foto/'.$gambar1);
         $query = mysqli_query($koneksi, "INSERT INTO data_paslon VALUES(NULL, '$gambar1')");
-        $gambar2 = $_FILES['gambar2']['name'];
-        $x = explode('.', $gambar2);
-        $ekstensi = strtolower(end($x));
-        $ukuran = $_FILES['gambar2']['size'];
-        $file_tmp = $_FILES['gambar2']['tmp_name'];     
-        if(in_array($ekstensi, $ekstensi_diperbolehkan) === true){
-          if($ukuran <= 2000000){          
-            move_uploaded_file($file_tmp, 'foto/'.$gambar2);
-            $query = mysqli_query($koneksi, "INSERT INTO data_paslon VALUES(NULL, '$gambar2')");
-          }
-        }
+
+        mysqli_query($koneksi,"INSERT INTO data_paslon(id, nis_ketua, nm_calon_ketua, gambar1, no_urut)
+          VALUES ('','$nis_ketua','$nm_calon_ketua','$gambar1','$no_urut')");
+        
+        echo "<script>window.alert('Berhasil')
+        window.location='input_data_paslon.php'</script>";
+      }else{
+        echo "<script>window.alert('Ukuran file tidak boleh lebih dari 2MB')
+          window.location='input_data_paslon.php'</script>";
       }
     }
   }
-  
-  mysqli_query($koneksi,"INSERT INTO data_paslon(id, nis_ketua, nm_calon_ketua, gambar1, no_urut)
-    VALUES ('','$nis_ketua','$nm_calon_ketua','$gambar1','$no_urut')");
-  
-  echo "<script>window.alert('Berhasil')
-  window.location='input_data_paslon.php'</script>";
-  
 }
 ?>
 <!DOCTYPE html>

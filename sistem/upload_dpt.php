@@ -217,10 +217,7 @@ $no_urut= mysqli_real_escape_string($koneksi, $_POST['no_urut']);
                     </div>
                   </div>
                 </div>
-
-
-
-  </div>
+          </div>
 
 
           <div class="footer">

@@ -4,16 +4,16 @@ include'koneksi.php';
 
 if(isset($_POST['login'])){
 	$kode_akses = mysqli_real_escape_string($koneksi, $_POST['kode_akses']);
-	$data_akses = mysqli_query($koneksi, "SELECT * FROM tbl_akses INNER JOIN tbl_dpt ON tbl_akses.nim = tbl_dpt.nim WHERE kode_akses='$kode_akses'");
+	$data_akses = mysqli_query($koneksi, "SELECT * FROM tbl_akses INNER JOIN tbl_dpt ON tbl_akses.nis = tbl_dpt.nis WHERE kode_akses='$kode_akses'");
 	$r = mysqli_fetch_array($data_akses);
-	$nim = $r['nim'];
+	$nis = $r['nis'];
 	$kode_akses = $r['kode_akses'];
-	$nama_mhs = $r['nama_mhs'];
+	$nama_siswa = $r['nama_siswa'];
 	$level = $r['level'];
 	if( mysqli_num_rows($data_akses) === 1 ){
 		$_SESSION["login"] = true;
-		$_SESSION['nim'] = $nim;
-		$_SESSION['nama_mhs'] = $nama_mhs;
+		$_SESSION['nis'] = $nis;
+		$_SESSION['nama_siswa'] = $nama_siswa;
 		$_SESSION['kode_akses'] = $kode_akses;
 		$_SESSION['level'] = $level;
 		header('location:sistem');
