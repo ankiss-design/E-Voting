@@ -6,27 +6,35 @@ if ( !isset($_SESSION["login"]) ) {
 }
 include'../koneksi.php';
 
+$nis = $_SESSION['nis'];
+$is_voted = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM tbl_dpt WHERE nis='$nis'"));
+if($is_voted['status'] == "(Sudah Memilih)") {
+  session_unset();
+  session_destroy();
+
+  echo"<script>window.alert('Anda tidak bisa melakukan voting lagi')
+  window.location='index.php'</script>";
+}
+
 if(isset($_POST['simpan'])) {
   date_default_timezone_set('Asia/jakarta');
   $waktu = date('H:i:sa');
-  $nis = $_SESSION['nis'];
   $kode_akses= $_SESSION['kode_akses'];
   $nomor_calon =$_POST['nomor_calon'];
 
   $cek = mysqli_num_rows(mysqli_query($koneksi,"SELECT * FROM tbl_paslon WHERE kode_akses='$kode_akses'"));
   if ($cek > 0){
-    echo"<script>window.alert('Anda tidak bisa melakukan voting lagi')
-          window.location='index.php'</script>";
-        }else {
-          mysqli_query($koneksi, "UPDATE tbl_dpt SET status='(Sudah Memilih)', waktu='$waktu' WHERE nis='$nis'");
-          mysqli_query($koneksi,"INSERT INTO tbl_paslon(kode_akses, nomor_calon)
-            VALUES ('$kode_akses','$nomor_calon')");
+      echo"<script>window.alert('Anda tidak bisa melakukan voting lagi')
+      window.location='index.php'</script>";
+    }else {
+        mysqli_query($koneksi,"INSERT INTO tbl_paslon(kode_akses, nomor_paslon) VALUES ('$kode_akses','$nomor_calon')");
+        mysqli_query($koneksi, "UPDATE tbl_dpt SET status='(Sudah Memilih)', waktu='$waktu' WHERE nis='$nis'");
 
-          echo"<script>window.alert('Voting Berhasil')
-          window.location='index.php'</script>";
-        }
-      }
-      ?>
+        echo"<script>window.alert('Voting Berhasil')
+        window.location='index.php'</script>";
+    }
+  }
+?>
       <!DOCTYPE html>
       <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
@@ -88,6 +96,7 @@ if(isset($_POST['simpan'])) {
               <li>
                 <a href="index.php"><i class="fa fa-desktop"></i>Beranda</a>
               </li>
+
               <?php
               $level = $_SESSION['level'] == 'admin';
               if($level){
@@ -163,7 +172,9 @@ if(isset($_POST['simpan'])) {
                             <td align="center"><h2><?php echo $d['nm_calon_ketua']; ?></h2></td>
                           </tr>
                           <tr>
-                            <td colspan="2" style="text-align: center; padding: 20px; background-color: gray;"><input type="radio" required="required" name="nomor_calon" value="<?php echo $d['no_urut']; ?>"></td>
+                            <td colspan="2" style="text-align: center; padding: 20px; background-color: gray;">
+                              <input type="radio" required="required" name="nomor_calon" value="<?php echo $d['no_urut']; ?>">
+                            </td>
                           </tr>
                         </table>
                       </div>
@@ -196,7 +207,7 @@ if(isset($_POST['simpan'])) {
   <div class="footer">
     <div class="row">
       <div class="col-lg-12" >
-        &copy; Copyright Agus Kurniawan <?php echo date('Y') ?> <a href="http://binarytheme.com" style="color:#fff;" target="_blank"></a>
+        &copy; Custom Agus Kurniawan & AnggaKis <?php echo date('Y') ?> <a href="http://binarytheme.com" style="color:#fff;" target="_blank"></a>
       </div>
     </div>
   </div>
