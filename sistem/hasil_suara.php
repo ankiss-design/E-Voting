@@ -6,46 +6,7 @@ if ( !isset($_SESSION["login"]) ) {
 }
 include'../koneksi.php';
 
-if(isset($_POST['simpan'])) {
-  $nim_ketua= mysqli_real_escape_string($koneksi, $_POST['nim_ketua']);
-  $nm_paslon_ketua= mysqli_real_escape_string($koneksi, $_POST['nm_paslon_ketua']);
-  $nim_wakil= mysqli_real_escape_string($koneksi, $_POST['nim_wakil']);
-  $nm_paslon_wakil= mysqli_real_escape_string($koneksi, $_POST['nm_paslon_wakil']);
-  $no_urut= mysqli_real_escape_string($koneksi, $_POST['no_urut']);
 
-  if($_POST['simpan']){
-    $ekstensi_diperbolehkan = array('png','jpg');
-    $gambar1 = $_FILES['gambar1']['name'];
-    $x = explode('.', $gambar1);
-    $ekstensi = strtolower(end($x));
-    $ukuran = $_FILES['gambar1']['size'];
-    $file_tmp = $_FILES['gambar1']['tmp_name'];     
-    if(in_array($ekstensi, $ekstensi_diperbolehkan) === true){
-      if($ukuran < 5044070){          
-        move_uploaded_file($file_tmp, 'foto/'.$gambar1);
-        $query = mysqli_query($koneksi, "INSERT INTO data_paslon VALUES(NULL, '$gambar1')");
-        $gambar2 = $_FILES['gambar2']['name'];
-        $x = explode('.', $gambar2);
-        $ekstensi = strtolower(end($x));
-        $ukuran = $_FILES['gambar2']['size'];
-        $file_tmp = $_FILES['gambar2']['tmp_name'];     
-        if(in_array($ekstensi, $ekstensi_diperbolehkan) === true){
-          if($ukuran < 5044070){          
-            move_uploaded_file($file_tmp, 'foto/'.$gambar2);
-            $query = mysqli_query($koneksi, "INSERT INTO data_paslon VALUES(NULL, '$gambar2')");
-          }
-        }
-      }
-    }
-  }
-
-  mysqli_query($koneksi,"INSERT INTO data_paslon(id, nim_ketua, nm_paslon_ketua, gambar1, nim_wakil, nm_paslon_wakil, gambar2, no_urut)
-    VALUES ('','$nim_ketua','$nm_paslon_ketua','$gambar1','$nim_wakil','$nm_paslon_wakil','$gambar2','$no_urut')");
-
-  echo "<script>window.alert('Berhasil')
-  window.location='input_data_paslon.php'</script>";
-
-}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -156,7 +117,7 @@ if(isset($_POST['simpan'])) {
           var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ["CALON 1", "CALON 2", "CALON 3", "CALON 4"],
+              labels: ['CALON 1', 'CALON 2'],
               datasets: [{
                 label: 'Jumlah Suara',
                 data: [
@@ -164,18 +125,11 @@ if(isset($_POST['simpan'])) {
                 $paslon1 = mysqli_query($koneksi,"select * from tbl_paslon where nomor_paslon='1'");
                 echo mysqli_num_rows($paslon1);
                 ?>, 
+
                 <?php 
                 $paslon2 = mysqli_query($koneksi,"select * from tbl_paslon where nomor_paslon='2'");
                 echo mysqli_num_rows($paslon2);
-                ?>, 
-                <?php 
-                $paslon3 = mysqli_query($koneksi,"select * from tbl_paslon where nomor_paslon='3'");
-                echo mysqli_num_rows($paslon3);
                 ?>,
-                <?php 
-                $paslon4 = mysqli_query($koneksi,"select * from tbl_paslon where nomor_paslon='4'");
-                echo mysqli_num_rows($paslon4);
-                ?>
                 ],
                 backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
