@@ -148,6 +148,7 @@ if(isset($_POST['simpan'])) {
             </div>
           </div>
 
+          <?php if(!$level) : ?>
           <div class="row">
             <div class="col-lg-12">
              <div class="alert alert-success">
@@ -185,6 +186,7 @@ if(isset($_POST['simpan'])) {
               </div>
             </div>
           </div>
+          <?php endif ?>
         </div>
         <!-- /. ROW  --> 
 

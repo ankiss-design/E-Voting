@@ -30,10 +30,12 @@ for ($i=2; $i<=$jumlah_baris; $i++){
 	$nama_mhs   = $data->val($i, 2);
 	$status   = $data->val($i, 3);
 	$waktu   = $data->val($i, 3);
+	$kode_akses = $nim . 'MANIS';
  
 	if($nim != "" && $nama_mhs != "" && $status != "" && $waktu != "" ){
 		// input data ke database (table data_pegawai)
 		mysqli_query($koneksi,"INSERT INTO tbl_dpt values('$nim','$nama_mhs','$status','$waktu')");
+		mysqli_query($koneksi,"INSERT INTO tbl_akses VALUES('$nim', '$kode_akses', 'user')");
 		$berhasil++;
 	}
 }

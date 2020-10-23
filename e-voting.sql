@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2020 at 12:22 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.4
+-- Generation Time: Oct 23, 2020 at 08:31 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -51,7 +52,7 @@ INSERT INTO `data_paslon` (`id`, `nis_ketua`, `nm_calon_ketua`, `gambar1`, `no_u
 
 CREATE TABLE `tbl_akses` (
   `nis` varchar(9) NOT NULL,
-  `kode_akses` varchar(6) NOT NULL,
+  `kode_akses` varchar(20) NOT NULL,
   `level` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -60,8 +61,21 @@ CREATE TABLE `tbl_akses` (
 --
 
 INSERT INTO `tbl_akses` (`nis`, `kode_akses`, `level`) VALUES
-('F1A116001', 'ASU', 'user'),
-('F1A416026', 'RTYUI', 'admin');
+('F1A116001', 'F1A116001MANIS', 'admin'),
+('F1A116002', 'F1A116002MANIS', 'user'),
+('F1A116003', 'F1A116003MANIS', 'user'),
+('F1A116004', 'F1A116004MANIS', 'user'),
+('F1A116005', 'F1A116005MANIS', 'user'),
+('F1A116006', 'F1A116006MANIS', 'user'),
+('F1A116007', 'F1A116007MANIS', 'user'),
+('F1A116008', 'F1A116008MANIS', 'user'),
+('F1A116009', 'F1A116009MANIS', 'user'),
+('F1A116010', 'F1A116010MANIS', 'user'),
+('F1A116011', 'F1A116011MANIS', 'user'),
+('F1A116012', 'F1A116012MANIS', 'user'),
+('F1A116013', 'F1A116013MANIS', 'user'),
+('F1A116014', 'F1A116014MANIS', 'user'),
+('F1A116015', 'F1A116015MANIS', 'user');
 
 -- --------------------------------------------------------
 
@@ -81,7 +95,7 @@ CREATE TABLE `tbl_dpt` (
 --
 
 INSERT INTO `tbl_dpt` (`nis`, `nama_siswa`, `status`, `waktu`) VALUES
-('F1A116001', 'Riko andreas', '(Sudah Memilih)', '17:20:22pm'),
+('F1A116001', 'Riko andreas', 'Belum memilih', 'Belum memilih'),
 ('F1A116002', 'herlanto', 'Belum memilih', 'Belum memilih'),
 ('F1A116003', 'yuda pratama', 'Belum memilih', 'Belum memilih'),
 ('F1A116004', 'cico yeriko', 'Belum memilih', 'Belum memilih'),
@@ -95,8 +109,7 @@ INSERT INTO `tbl_dpt` (`nis`, `nama_siswa`, `status`, `waktu`) VALUES
 ('F1A116012', 'samsudin', 'Belum memilih', 'Belum memilih'),
 ('F1A116013', 'karmila', 'Belum memilih', 'Belum memilih'),
 ('F1A116014', 'siti nur baya', 'Belum memilih', 'Belum memilih'),
-('F1A116015', 'ipang bahri', 'Belum memilih', 'Belum memilih'),
-('F1A416026', 'jevi', 'Belum memilih', '-');
+('F1A116015', 'ipang bahri', 'Belum memilih', 'Belum memilih');
 
 -- --------------------------------------------------------
 
@@ -105,7 +118,7 @@ INSERT INTO `tbl_dpt` (`nis`, `nama_siswa`, `status`, `waktu`) VALUES
 --
 
 CREATE TABLE `tbl_paslon` (
-  `kode_akses` varchar(6) NOT NULL,
+  `kode_akses` varchar(20) NOT NULL,
   `nomor_paslon` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
